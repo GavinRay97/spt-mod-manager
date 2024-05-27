@@ -1,85 +1,9 @@
 import { useEffect, useState } from "react"
 import { createRoot } from "react-dom/client"
-import styled from "styled-components"
 
 const ipcRenderer = require("electron").ipcRenderer
 
-// I want to make a tool to manage mod profiles for a game.
-
-// For the game, mods are installed the directory containing the game files.
-// The folders which contain mods are:
-// - `user`
-// - `BepInEx\config`
-// - `BepInEx\plugins`
-
-// There should be a directory of mod profiles, like `spt_mod_profiles`, containing sub-directories for each profile, like `profile_1`, which contain these folders.
-
-// The mod is an Electron React TypeScript app.
-
-// The UI should allow users to create or select profiles from previously created ones.
-// When selecting a profile, the tool should symlink the contents of that profiles folders into the main game directory so that they become "active".
-
 const root = createRoot(document.body)
-
-const Container = styled.div`
-  padding: 20px;
-  font-family: Arial, sans-serif;
-`
-
-const Title = styled.h1`
-  color: #333;
-`
-
-const ProfileList = styled.ul`
-  list-style: none;
-  padding: 0;
-`
-
-const ProfileItem = styled.li`
-  padding: 10px;
-  margin: 5px 0;
-  background-color: #f0f0f0;
-  cursor: pointer;
-  border-radius: 5px;
-
-  &:hover {
-    background-color: #e0e0e0;
-  }
-`
-
-const Button = styled.button`
-  background-color: #4caf50; /* Green */
-  color: white;
-  padding: 10px 20px;
-  margin: 10px 0;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #45a049;
-  }
-`
-
-const Input = styled.input`
-  padding: 10px;
-  margin-right: 10px;
-  width: 200px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-`
-
-const DirectoryInputContainer = styled.div`
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-`
-
-const CurrentProfile = styled.div`
-  margin-top: 20px;
-  font-size: 16px;
-  color: darkblue;
-`
 
 const ProfileManager = () => {
   const [profiles, setProfiles] = useState<string[]>([])
